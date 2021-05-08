@@ -117,7 +117,7 @@ void setup(void)
 
 // myDelay
 void myDelay(int iMyDel) {
-  unsigned int uiMyDelMillis;
+  unsigned long uiMyDelMillis;
 
   uiMyDelMillis = millis();
   while ( (millis() - uiMyDelMillis) < iMyDel)
