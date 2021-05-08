@@ -53,13 +53,13 @@ void reconnect() {
     Serial.print(F("Versuch des MQTT Verbindungsaufbaus..."));
     //Versuch die Verbindung aufzunehmen
     if (client.connect("SDR-12v-supply")) {
-      Serial.println("Erfolgreich verbunden!");
+      Serial.println(F("Erfolgreich verbunden!"));
       // Nun versendet der Arduino eine Nachricht in outTopic ...
       client.publish("DD0VS/SDR-12V","connected");
       // und meldet sich für bei inTopic für eingehende Nachrichten an
       //client.subscribe("inTopic");
     } else {
-      Serial.print("Fehler, rc=");
+      Serial.print(F("Fehler, rc="));
       Serial.print(client.state());
       Serial.println(F(" Nächster Versuch in 5 Sekunden"));
       // 5 Sekunden Pause vor dem nächsten Versuch
@@ -91,12 +91,12 @@ void setup(void)
   // Or to use a lower 16V, 400mA range (higher precision on volts and amps):
   //ina219.setCalibration_16V_400mA();
 
-  Serial.println("Measuring voltage and current with INA219 ... and writing it back via MQTT");
+  Serial.println(F("Measuring voltage and current with INA219 ... and writing it back via MQTT"));
 
   // start the Ethernet connection:
-  Serial.println("Initialize Ethernet with DHCP:");
+  Serial.println(F("Initialize Ethernet with DHCP:"));
   if (Ethernet.begin(mac) == 0) {
-    Serial.println("Failed to configure Ethernet using DHCP");
+    Serial.println(F("Failed to configure Ethernet using DHCP"));
     if (Ethernet.hardwareStatus() == EthernetNoHardware) {
       Serial.println(F("Ethernet shield was not found.  Sorry, can't run without hardware. :("));
     } else if (Ethernet.linkStatus() == LinkOFF) {
@@ -157,27 +157,27 @@ void loop(void)
   switch (Ethernet.maintain()) {
     case 1:
       //renewed fail
-      Serial.println("Error: renewed fail");
+      Serial.println(F("Error: renewed fail"));
       break;
 
     case 2:
       //renewed success
-      Serial.println("Renewed success");
+      Serial.println(F("Renewed success"));
       //print your local IP address:
-      Serial.print("My IP address: ");
+      Serial.print(F("My IP address: "));
       Serial.println(Ethernet.localIP());
       break;
 
     case 3:
       //rebind fail
-      Serial.println("Error: rebind fail");
+      Serial.println(F("Error: rebind fail"));
       break;
 
     case 4:
       //rebind success
-      Serial.println("Rebind success");
+      Serial.println(F("Rebind success"));
       //print your local IP address:
-      Serial.print("My IP address: ");
+      Serial.print(F("My IP address: "));
       Serial.println(Ethernet.localIP());
       break;
 
