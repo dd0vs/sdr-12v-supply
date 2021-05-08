@@ -33,7 +33,8 @@ float busvoltage = 0;
 float current_mA = 0;
 float loadvoltage = 0;
 float power_mW = 0;
-char sCurrent_mA [10];
+char  sCurrent_mA[10];
+char  sBusvoltage[5];
 
 
 // Enter a MAC address and IP address for your controller below.
@@ -118,11 +119,11 @@ void setup(void)
 // myDelay
 void myDelay(int iMyDel) {
   unsigned long uiMyDelMillis;
-
   uiMyDelMillis = millis();
-  while ( (millis() - uiMyDelMillis) < iMyDel)
+  //Serial.print(F("Delay")); Serial.print(uiMyDelMillis);
+  while ( (millis() - uiMyDelMillis) < (unsigned long)iMyDel)
   {}
-
+  //Serial.println(millis());
 }
 
 
@@ -146,9 +147,13 @@ void loop(void)
       reconnect();
   }
   client.loop();
+  //publish current
   dtostrf(current_mA,7,1,sCurrent_mA);
   client.publish("DD0VS/SDR-12V/amps",sCurrent_mA);
-
+  //publish Voltage
+  dtostrf(busvoltage,4,1,sBusvoltage);
+  client.publish("DD0VS/SDR-12V/volts",sCurrent_mA);
+  
   switch (Ethernet.maintain()) {
     case 1:
       //renewed fail
